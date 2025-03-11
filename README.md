@@ -48,4 +48,9 @@
 - [Ready-made Mini App Templates](https://mini.zalo.me/zaui-templates)
 - [Community Support](https://mini.zalo.me/community)
 
-📹 [Xem video demo](https://github.com/TranHuyThang9999/chat-box-basic/raw/master/appboxchat.webm)
+📹 [Xem video demo](https://github.com/TranHuyThang9999/chat-box-basic/blob/master/appboxchat.webm)
+
+
+<video width="640" height="360" controls>
+  <source src="https://github.com/TranHuyThang9999/chat-box-basic/raw/master/appboxchat.webm" type="video/webm">
+</video>
