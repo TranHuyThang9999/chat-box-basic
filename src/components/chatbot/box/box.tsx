@@ -60,20 +60,21 @@ const ChatBox = () => {
                         </div>
                     </div>
                 ))}
-                {isLoading && <div className="text-gray-500 text-center">Đang phản hồi...</div>}
-
                 {/* Thẻ div ẩn để scroll xuống cuối */}
                 <div ref={chatEndRef}/>
             </div>
 
             {/* Input & Button */}
             <div className="relative w-full">
+                {isLoading && <div className="text-gray-500 text-center mb-2">Đang phản hồi...</div>}
                 <input
                     type="text"
                     value={messageUser}
                     onChange={(e) => setMessageUser(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleBotResponse()}
                     placeholder="Nhập tin nhắn..."
                     className="w-full p-3 pr-12 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+                    required = {true}
                 />
                 <button
                     className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
