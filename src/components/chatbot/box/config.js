@@ -8,7 +8,7 @@ export const getBotResponse = (messageUser) => {
 
     const responses = {
         "time now": showTime,
-        "name": " kkk https://redux-toolkit.js.org/introduction/why-rtk-is-redux-today",
+        "name": "Tôi là chat bot bạn cần hỗ trợ gì không",
     };
 
     let botResponse = responses[normalizedMessage] || "Vui lòng thử lại";

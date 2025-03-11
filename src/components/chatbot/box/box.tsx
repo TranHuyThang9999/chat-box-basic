@@ -6,7 +6,7 @@ const ChatBox = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setListMessageHistory([{ user: "", bot: "Tôi có thể giúp gì cho bạn?" }]);
+            setListMessageHistory([{user: "", bot: "Tôi có thể giúp gì cho bạn?"}]);
         }, 500);
 
         return () => clearTimeout(timer); // Xóa timeout nếu component bị unmount
@@ -61,24 +61,42 @@ const ChatBox = () => {
 
             {/* Input & Button */}
             <div className="relative w-full">
-                {isLoading && <div className="text-gray-500 text-center mb-2">Đang phản hồi...</div>}
+                {/* Input chính */}
                 <input
                     type="text"
                     value={messageUser}
                     onChange={(e) => setMessageUser(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleBotResponse()}
                     placeholder="Nhập tin nhắn..."
-                    className="w-full p-3 pr-12 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+                    className="w-full p-3 pl-10 pr-20 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                     required
                 />
+
+                {/* Nút upload file (📎) bên trái */}
+                <label className="absolute left-2 top-1/2 -translate-y-1/2 cursor-pointer">
+                    <input type="file" hidden onChange={(e) => console.log(e.target.files)}/>
+                    <span className="text-gray-500 hover:text-gray-700">📎</span>
+                </label>
+
+                {/* Nút chọn emoji (😊) */}
+                <button
+                    className="absolute right-14 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    onClick={() => console.log("Chọn emoji!")}
+                >
+                    😊
+                </button>
+
+                {/* Nút gửi tin nhắn (📤) bên phải */}
                 <button
                     className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
                     onClick={handleBotResponse}
                     disabled={isLoading}
                 >
-                    {isLoading ? "..." : "Send"}
+                    {isLoading ? "..." : "📤"}
                 </button>
             </div>
+
+
         </div>
     );
 };
