@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b1767b9-6fc3-470f-9eee-1d34482fc65a" name="Changes" comment="refactor chatbox component for improved visibility and user experience">
+    <list default="true" id="8b1767b9-6fc3-470f-9eee-1d34482fc65a" name="Changes" comment="refactor chatbox component to hide emoji picker on user message input">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/chatbot/box/box.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chatbot/box/box.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +65,7 @@
       <updated>1741677448478</updated>
       <workItem from="1741677449550" duration="139000" />
       <workItem from="1741677604087" duration="4320000" />
-      <workItem from="1741681934254" duration="1698000" />
+      <workItem from="1741681934254" duration="1896000" />
     </task>
     <task id="LOCAL-00001" summary="update workspace configuration and improve chatbox functionality">
       <option name="closed" value="true" />
@@ -82,7 +83,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741683567137</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="refactor chatbox component to hide emoji picker on user message input">
+      <option name="closed" value="true" />
+      <created>1741683677495</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1741683677495</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -91,6 +100,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update workspace configuration and improve chatbox functionality" />
     <MESSAGE value="refactor chatbox component for improved visibility and user experience" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor chatbox component for improved visibility and user experience" />
+    <MESSAGE value="refactor chatbox component to hide emoji picker on user message input" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor chatbox component to hide emoji picker on user message input" />
   </component>
 </project>

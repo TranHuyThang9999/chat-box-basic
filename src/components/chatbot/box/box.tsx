@@ -1,6 +1,6 @@
 "use client"
 
-import {useRef, useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import EmojiPicker from "emoji-picker-react"
 
 const ChatBox = () => {
@@ -21,6 +21,10 @@ const ChatBox = () => {
             setIsLoading(false)
         }, 1000)
     }
+
+    useEffect(() => {
+        chatEndRef.current?.scrollIntoView({behavior: "smooth"});
+    }, [listMessageHistory]);
 
     return (
         <div className="fixed bottom-5 right-5">
@@ -68,6 +72,8 @@ const ChatBox = () => {
                             </>
                         )}
                     </button>
+                    <div ref={chatEndRef}/>
+
                 </div>
 
                 {/* Chat content - Only visible when isChatVisible is true */}
