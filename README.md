@@ -4,7 +4,8 @@
 
 ### Using Zalo Mini App Extension
 
-1. Install [Visual Studio Code](https://code.visualstudio.com/download) and [Zalo Mini App Extension](https://mini.zalo.me/docs/dev-tools).
+1. Install [Visual Studio Code](https://code.visualstudio.com/download)
+   and [Zalo Mini App Extension](https://mini.zalo.me/docs/dev-tools).
 1. In the **Home** tab, process **Config App ID** and **Install Dependencies**.
 1. Navigate to the **Run** tab, select the suitable launcher, and click **Start**.
 
@@ -24,16 +25,17 @@
 
 ## Deployment
 
-1. **Create** a mini program. For instructions on how to create a mini program, please refer to the [Coffee Shop Tutorial](https://mini.zalo.me/tutorial/coffee-shop/step-1/)
+1. **Create** a mini program. For instructions on how to create a mini program, please refer to
+   the [Coffee Shop Tutorial](https://mini.zalo.me/tutorial/coffee-shop/step-1/)
 
 1. **Deploy** your mini program to Zalo using the mini app ID created.
 
-   - **Using Zalo Mini App Extension**: navigate to the **Deploy** panel > **Login** > **Deploy**.
-   - **Using Zalo Mini App CLI**:
-     ```bash
-     zmp login
-     zmp deploy
-     ```
+    - **Using Zalo Mini App Extension**: navigate to the **Deploy** panel > **Login** > **Deploy**.
+    - **Using Zalo Mini App CLI**:
+      ```bash
+      zmp login
+      zmp deploy
+      ```
 
 1. Open the mini app in Zalo by scanning the QR code.
 
@@ -45,3 +47,5 @@
 - [DevTools Documentation](https://mini.zalo.me/docs/dev-tools/)
 - [Ready-made Mini App Templates](https://mini.zalo.me/zaui-templates)
 - [Community Support](https://mini.zalo.me/community)
+
+
