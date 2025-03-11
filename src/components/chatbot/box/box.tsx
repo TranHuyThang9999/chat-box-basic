@@ -1,8 +1,13 @@
 import {useState, useEffect, useRef} from "react";
 import {getBotResponse} from "./config";
+import EmojiPicker from "emoji-picker-react";
 
 const ChatBox = () => {
     const [listMessageHistory, setListMessageHistory] = useState<{ user: string; bot: string }[]>([]);
+    const [messageUser, setMessageUser] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const chatEndRef = useRef<HTMLDivElement>(null);
+    const [showPicker, setShowPicker] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -12,9 +17,6 @@ const ChatBox = () => {
         return () => clearTimeout(timer); // Xóa timeout nếu component bị unmount
     }, []);
 
-    const [messageUser, setMessageUser] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const chatEndRef = useRef<HTMLDivElement>(null);
 
     const handleBotResponse = () => {
         if (!messageUser.trim()) return;
@@ -27,6 +29,10 @@ const ChatBox = () => {
             setMessageUser('');
             setIsLoading(false);
         }, 1000);
+    };
+
+    const onEmojiClick = (emojiObject) => {
+        setMessageUser((prevInput) => prevInput + emojiObject.emoji);
     };
 
     useEffect(() => {
@@ -80,20 +86,38 @@ const ChatBox = () => {
 
                 {/* Nút chọn emoji (😊) */}
                 <button
+                    onClick={() => setShowPicker((prev) => !prev)}
                     className="absolute right-14 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                    onClick={() => console.log("Chọn emoji!")}
                 >
                     😊
                 </button>
 
-                {/* Nút gửi tin nhắn (📤) bên phải */}
+                {showPicker && (
+                    <div className="absolute bottom-12 right-0">
+                        <EmojiPicker onEmojiClick={onEmojiClick}/>
+                    </div>
+                )}
+
                 <button
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white border-l-2 border-l-blue-500 text-blue-500 px-3 py-1 rounded-lg hover:bg-blue-100 transition"
                     onClick={handleBotResponse}
                     disabled={isLoading}
                 >
-                    {isLoading ? "..." : "📤"}
+                    {isLoading ? "..." : (
+                        <svg
+                            className="w-6 h-6 stroke-blue-500 fill-none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path d="M22 2L11 13" />
+                            <path d="M22 2L15 22 11 13 2 9 22 2z" />
+                        </svg>
+                    )}
                 </button>
+
+
             </div>
 
 
