@@ -14,7 +14,7 @@ const ChatBox = () => {
     const handleBotResponse = () => {
         if (!messageUser.trim()) return
         setIsLoading(true)
-
+        setShowPicker(false)
         setTimeout(() => {
             setListMessageHistory([...listMessageHistory, {user: messageUser, bot: "Bot trả lời đây!"}])
             setMessageUser("")
