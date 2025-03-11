@@ -1,7 +1,7 @@
-"use client"
-
 import {useEffect, useRef, useState} from "react"
 import EmojiPicker from "emoji-picker-react"
+import {getBotResponse} from "./config";
+
 
 const ChatBox = () => {
     const [isChatVisible, setIsChatVisible] = useState(true)
@@ -12,15 +12,16 @@ const ChatBox = () => {
     const chatEndRef = useRef(null)
 
     const handleBotResponse = () => {
-        if (!messageUser.trim()) return
-        setIsLoading(true)
-        setShowPicker(false)
+        if (!messageUser.trim()) return;
+        setIsLoading(true);
+        setShowPicker(false);
         setTimeout(() => {
-            setListMessageHistory([...listMessageHistory, {user: messageUser, bot: "Bot trả lời đây!"}])
-            setMessageUser("")
-            setIsLoading(false)
-        }, 1000)
-    }
+            const botResponse = getBotResponse(messageUser);
+            setListMessageHistory([...listMessageHistory, {user: messageUser, bot: botResponse}]);
+            setMessageUser("");
+            setIsLoading(false);
+        }, 1000);
+    };
 
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({behavior: "smooth"});
@@ -31,7 +32,6 @@ const ChatBox = () => {
             {/* Main chat container - Always visible */}
             <div className="w-full max-w-sm md:max-w-lg mx-auto bg-white shadow-lg rounded-lg">
                 {/* Header with integrated toggle button */}
-                {/* Header của chatbox */}
                 <div
                     className="flex items-center justify-between font-semibold text-gray-800 border-b border-gray-300 p-3 md:p-4">
                     {/* Tên chatbox với icon */}
@@ -87,7 +87,7 @@ const ChatBox = () => {
                     </button>
                     <div ref={chatEndRef}/>
                 </div>
-                
+
                 {/* Chat content - Only visible when isChatVisible is true */}
                 {isChatVisible && (
                     <div className="p-3 md:p-4 min-h-[400px]">

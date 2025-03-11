@@ -7,15 +7,16 @@ export const getBotResponse = (messageUser) => {
     const showTime = new Date().toLocaleTimeString();
 
     const responses = {
-        "time now": showTime,
-        "name": "Tôi là chat bot bạn cần hỗ trợ gì không",
+        "mấy h rồi": showTime,
+        "bạn là ai": "tôi là chatGPT Supper model 9.0",
+        "source project": "đây là link project https://github.com/TranHuyThang9999/chat-box-basic",
     };
 
     let botResponse = responses[normalizedMessage] || "Vui lòng thử lại";
 
     const matches = linkify.match(botResponse);
     if (matches) {
-        matches.forEach(({ url }) => {
+        matches.forEach(({url}) => {
             botResponse = botResponse.replace(
                 url,
                 `<a href="${url}" target="_blank" class="text-blue-500 underline">${url}</a>`

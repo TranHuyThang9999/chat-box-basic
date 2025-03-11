@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b1767b9-6fc3-470f-9eee-1d34482fc65a" name="Changes" comment="refactor chatbox component to auto-scroll to the latest message">
+    <list default="true" id="8b1767b9-6fc3-470f-9eee-1d34482fc65a" name="Changes" comment="refactor chatbox component header for improved layout and functionality">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/chatbot/box/box.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chatbot/box/box.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chatbot/box/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chatbot/box/config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +46,7 @@
     "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.completion",
+    "settings.editor.selected.configurable": "Errors",
     "ts.external.directory.path": "/home/huythang/Downloads/Ides/WebStorm-2024.3.4/WebStorm-243.25659.40/plugins/javascript-plugin/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
@@ -65,7 +68,7 @@
       <updated>1741677448478</updated>
       <workItem from="1741677449550" duration="139000" />
       <workItem from="1741677604087" duration="4320000" />
-      <workItem from="1741681934254" duration="2247000" />
+      <workItem from="1741681934254" duration="2773000" />
     </task>
     <task id="LOCAL-00001" summary="update workspace configuration and improve chatbox functionality">
       <option name="closed" value="true" />
@@ -99,7 +102,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741683867788</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="refactor chatbox component header for improved layout and functionality">
+      <option name="closed" value="true" />
+      <created>1741684206266</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1741684206266</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,6 +121,7 @@
     <MESSAGE value="refactor chatbox component for improved visibility and user experience" />
     <MESSAGE value="refactor chatbox component to hide emoji picker on user message input" />
     <MESSAGE value="refactor chatbox component to auto-scroll to the latest message" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor chatbox component to auto-scroll to the latest message" />
+    <MESSAGE value="refactor chatbox component header for improved layout and functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor chatbox component header for improved layout and functionality" />
   </component>
 </project>
