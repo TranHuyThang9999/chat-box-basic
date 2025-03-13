@@ -4,7 +4,7 @@ import { getBotResponse } from "./config";
 
 
 const ChatBox = () => {
-    const [isChatVisible, setIsChatVisible] = useState(true)
+    const [isChatVisible, setIsChatVisible] = useState(false)
     const [messageUser, setMessageUser] = useState("")
     const [listMessageHistory, setListMessageHistory] = useState([])
     const [isLoading, setIsLoading] = useState(false)
@@ -28,36 +28,64 @@ const ChatBox = () => {
     }, [listMessageHistory]);
 
     return (
-        <div className="fixed bottom-5 right-5">
-
-            {/* Main chat container - Always visible */}
-            <div className="w-full max-w-sm md:max-w-lg mx-auto bg-white shadow-lg rounded-lg">
-                {/* Header with integrated toggle button */}
-                <div
-                    className="flex items-center justify-between font-semibold text-gray-800 border-b border-gray-300 p-3 md:p-4">
-                    {/* Tên chatbox với icon */}
-                    <div className="flex items-center space-x-2">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-5 h-5 text-blue-600"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <path d="M12 2l1.5 3 3.5.5-2.5 2.5.5 3.5L12 10l-3 1.5.5-3.5L7 5.5l3.5-.5L12 2z"></path>
-                        </svg>
-                        <span className="text-lg font-bold text-blue-600">Supper model 9.0</span>
-                    </div>
-
-                    {/* Nút đóng/mở chatbox */}
-                    <button
-                        className="text-blue-600 hover:text-blue-700 transition-all flex items-center"
-                        onClick={() => setIsChatVisible(!isChatVisible)}
+        <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end">
+            {/* Chat bubble button - Always visible when chat is collapsed */}
+            {!isChatVisible && (
+                <button 
+                    onClick={() => setIsChatVisible(true)}
+                    className="w-14 h-14 rounded-full bg-blue-500 text-white shadow-lg hover:bg-blue-600 active:bg-blue-700 transition-all flex items-center justify-center animate-bounce"
+                    aria-label="Open chat"
+                >
+                    <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        className="w-7 h-7" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
                     >
-                        {isChatVisible ? (
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    {listMessageHistory.length > 0 && (
+                        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                            {listMessageHistory.length}
+                        </span>
+                    )}
+                </button>
+            )}
+
+            {/* Main chat container - Only visible when expanded */}
+            {isChatVisible && (
+                <div className="w-full sm:w-80 md:w-96 bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 animate-fadeIn">
+                    {/* Header */}
+                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-3 flex items-center justify-between text-white sticky top-0 z-10">
+                        {/* Avatar and name */}
+                        <div className="flex items-center space-x-2">
+                            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="w-5 h-5"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path d="M12 2l1.5 3 3.5.5-2.5 2.5.5 3.5L12 10l-3 1.5.5-3.5L7 5.5l3.5-.5L12 2z"></path>
+                                </svg>
+                            </div>
+                            <span className="font-medium truncate">Supper model 9.0</span>
+                        </div>
+
+                        {/* Close button */}
+                        <button
+                            className="text-white/80 hover:text-white transition-all"
+                            onClick={() => setIsChatVisible(false)}
+                            aria-label="Close chat"
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="w-5 h-5"
@@ -71,41 +99,66 @@ const ChatBox = () => {
                                 <path d="M18 6L6 18"></path>
                                 <path d="M6 6l12 12"></path>
                             </svg>
-                        ) : (
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-5 h-5"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <path d="M5 15l7-7 7 7"></path>
-                            </svg>
-                        )}
-                    </button>
-                    <div ref={chatEndRef} />
-                </div>
+                        </button>
+                    </div>
 
-                {/* Chat content - Only visible when isChatVisible is true */}
-                {isChatVisible && (
-                    <div className="p-3 md:p-4 min-h-[400px]">
-                        {/* Lịch sử trò chuyện */}
-                        <div className="h-64 overflow-y-auto border-b mb-4 p-2">
+                    {/* Chat content */}
+                    <div className="p-3 min-h-[350px] max-h-[70vh] flex flex-col bg-gray-50">
+                        {/* Welcome message if no messages */}
+                        {listMessageHistory.length === 0 && (
+                            <div className="flex-grow flex items-center justify-center text-center p-4">
+                                <div>
+                                    <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="w-8 h-8 text-blue-500"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                        </svg>
+                                    </div>
+                                    <h3 className="font-medium text-gray-800 mb-1">Chào mừng bạn!</h3>
+                                    <p className="text-gray-500 text-sm">Hãy đặt câu hỏi để bắt đầu trò chuyện.</p>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Chat messages */}
+                        <div className="flex-grow h-0 overflow-y-auto space-y-3 mb-3">
                             {listMessageHistory.map((msg, index) => (
-                                <div key={index} className="mb-2">
+                                <div key={index} className="space-y-2">
                                     {msg.user && (
                                         <div className="flex justify-end">
-                                            <div
-                                                className="bg-blue-500 text-white rounded-lg p-2 max-w-xs">{msg.user}</div>
+                                            <div className="bg-blue-500 text-white rounded-2xl rounded-tr-none py-2 px-3 max-w-[80%] break-words shadow-sm">
+                                                {msg.user}
+                                            </div>
                                         </div>
                                     )}
 
-                                    <div className="flex justify-start mt-1">
-                                        <div className="bg-gray-200 text-gray-800 rounded-lg p-2 max-w-xs break-words">
-                                            <span dangerouslySetInnerHTML={{ __html: msg.bot }} />
+                                    <div className="flex justify-start">
+                                        <div className="flex items-end space-x-1">
+                                            <div className="w-6 h-6 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    className="w-4 h-4 text-gray-500"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                >
+                                                    <path d="M12 2l1.5 3 3.5.5-2.5 2.5.5 3.5L12 10l-3 1.5.5-3.5L7 5.5l3.5-.5L12 2z"></path>
+                                                </svg>
+                                            </div>
+                                            <div className="bg-white text-gray-800 rounded-2xl rounded-tl-none py-2 px-3 max-w-[80%] break-words shadow-sm">
+                                                <span dangerouslySetInnerHTML={{ __html: msg.bot }} />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -113,68 +166,128 @@ const ChatBox = () => {
                             <div ref={chatEndRef} />
                         </div>
 
-                        {/* Hiệu ứng chờ */}
-                        {isLoading && <span className="animate-pulse text-blue-500 text-2xl">...</span>}
+                        {/* Typing indicator */}
+                        {isLoading && (
+                            <div className="flex items-center space-x-1 mb-2">
+                                <div className="w-6 h-6 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-4 h-4 text-gray-500"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M12 2l1.5 3 3.5.5-2.5 2.5.5 3.5L12 10l-3 1.5.5-3.5L7 5.5l3.5-.5L12 2z"></path>
+                                    </svg>
+                                </div>
+                                <div className="bg-white text-gray-800 rounded-full py-2 px-4 shadow-sm">
+                                    <span className="flex space-x-1">
+                                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></span>
+                                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></span>
+                                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></span>
+                                    </span>
+                                </div>
+                            </div>
+                        )}
 
-                        {/* Input & Button */}
-                        <div className="relative w-full">
+                        {/* Input area */}
+                        <div className="relative w-full mt-auto bg-white rounded-full shadow-md border border-gray-200">
                             <input
                                 type="text"
                                 value={messageUser}
                                 onChange={(e) => setMessageUser(e.target.value)}
                                 onKeyDown={(e) => e.key === "Enter" && handleBotResponse()}
                                 placeholder="Nhập tin nhắn..."
-                                className="w-full p-3 pl-10 pr-14 border rounded-full focus:outline-none focus:ring focus:border-blue-300"
+                                className="w-full p-2 pl-10 pr-12 rounded-full focus:outline-none text-sm"
                             />
 
-                            {/* Nút upload file */}
-                            <label className="absolute left-3 top-1/2 -translate-y-1/2 cursor-pointer">
-                                <input type="file" hidden onChange={(e) => console.log(e.target.files)} />
-                                <span className="text-gray-500 hover:text-gray-700">📎</span>
-                            </label>
 
-                            {/* Nút chọn emoji */}
+                            {/* Attachment button */}
                             <button
-                                onClick={() => setShowPicker((prev) => !prev)}
-                                className="absolute right-16 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                            >
-                                😊
-                            </button>
-
-                            {showPicker && (
-                                <div className="absolute bottom-12 right-0 z-10">
-                                    <EmojiPicker onEmojiClick={(emoji) => setMessageUser(messageUser + emoji.emoji)} />
-                                </div>
-                            )}
-
-                            {/* Nút gửi */}
-                            <button
-                                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white shadow-md hover:bg-blue-600 active:bg-blue-700 transition-all"
-                                onClick={handleBotResponse}
-                                disabled={isLoading}
+                                className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                aria-label="Add attachment"
                             >
                                 <svg
-                                    className="w-5 h-5 transform rotate-45"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="w-5 h-5"
+                                    viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                 >
-                                    <path
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </button>
+
+                            {/* Emoji button */}
+                            <div className="absolute right-10 top-1/2 -translate-y-1/2">
+                                <button
+                                    className="text-gray-400 hover:text-yellow-500 transition-colors"
+                                    onClick={() => setShowPicker(!showPicker)}
+                                    aria-label="Add emoji"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-5 h-5"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                                    ></path>
+                                    >
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                                        <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                                        <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                                    </svg>
+                                </button>
+                                {showPicker && (
+                                    <div className="absolute bottom-10 right-0">
+                                        <EmojiPicker
+                                            onEmojiClick={(emojiObject) => {
+                                                setMessageUser((prevMsg) => prevMsg + emojiObject.emoji);
+                                            }}
+                                            width={280}
+                                            height={350}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Send button */}
+                            <button
+                                className="absolute right-1 top-1/2 -translate-y-1/2 bg-blue-500 text-white p-1.5 rounded-full hover:bg-blue-600 transition-colors"
+                                onClick={handleBotResponse}
+                                disabled={isLoading || !messageUser.trim()}
+                                aria-label="Send message"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="w-4 h-4"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                                 </svg>
                             </button>
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     )
 }
 
 export default ChatBox
-
