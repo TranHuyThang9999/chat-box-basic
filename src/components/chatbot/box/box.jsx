@@ -103,7 +103,7 @@ const ChatBox = () => {
                     </div>
 
                     {/* Chat content */}
-                    <div className="p-3 min-h-[350px] max-h-[70vh] flex flex-col bg-gray-50">
+                    <div className="p-3 min-h-[450px] max-h-[80vh] flex flex-col bg-gray-50">
                         {/* Welcome message if no messages */}
                         {listMessageHistory.length === 0 && (
                             <div className="flex-grow flex items-center justify-center text-center p-4">
@@ -129,7 +129,7 @@ const ChatBox = () => {
                         )}
 
                         {/* Chat messages */}
-                        <div className="flex-grow h-0 overflow-y-auto space-y-3 mb-3">
+                        <div className="flex-grow h-[400px] overflow-y-auto space-y-3 mb-3">
                             {listMessageHistory.map((msg, index) => (
                                 <div key={index} className="space-y-2">
                                     {msg.user && (
