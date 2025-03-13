@@ -1,6 +1,6 @@
-import {useEffect, useRef, useState} from "react"
+import { useEffect, useRef, useState } from "react"
 import EmojiPicker from "emoji-picker-react"
-import {getBotResponse} from "./config";
+import { getBotResponse } from "./config";
 
 
 const ChatBox = () => {
@@ -17,18 +17,19 @@ const ChatBox = () => {
         setShowPicker(false);
         setTimeout(() => {
             const botResponse = getBotResponse(messageUser);
-            setListMessageHistory([...listMessageHistory, {user: messageUser, bot: botResponse}]);
+            setListMessageHistory([...listMessageHistory, { user: messageUser, bot: botResponse }]);
             setMessageUser("");
             setIsLoading(false);
         }, 1000);
     };
 
     useEffect(() => {
-        chatEndRef.current?.scrollIntoView({behavior: "smooth"});
+        chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [listMessageHistory]);
 
     return (
         <div className="fixed bottom-5 right-5">
+
             {/* Main chat container - Always visible */}
             <div className="w-full max-w-sm md:max-w-lg mx-auto bg-white shadow-lg rounded-lg">
                 {/* Header with integrated toggle button */}
@@ -85,7 +86,7 @@ const ChatBox = () => {
                             </svg>
                         )}
                     </button>
-                    <div ref={chatEndRef}/>
+                    <div ref={chatEndRef} />
                 </div>
 
                 {/* Chat content - Only visible when isChatVisible is true */}
@@ -101,14 +102,16 @@ const ChatBox = () => {
                                                 className="bg-blue-500 text-white rounded-lg p-2 max-w-xs">{msg.user}</div>
                                         </div>
                                     )}
+                                   // Find the section where bot messages are rendered and update it:
+
                                     <div className="flex justify-start mt-1">
-                                        <div className="bg-gray-200 text-gray-800 rounded-lg p-2 max-w-xs">
-                                            <span dangerouslySetInnerHTML={{__html: msg.bot}}/>
+                                        <div className="bg-gray-200 text-gray-800 rounded-lg p-2 max-w-xs break-words">
+                                            <span dangerouslySetInnerHTML={{ __html: msg.bot }} />
                                         </div>
                                     </div>
                                 </div>
                             ))}
-                            <div ref={chatEndRef}/>
+                            <div ref={chatEndRef} />
                         </div>
 
                         {/* Hiệu ứng chờ */}
@@ -127,7 +130,7 @@ const ChatBox = () => {
 
                             {/* Nút upload file */}
                             <label className="absolute left-3 top-1/2 -translate-y-1/2 cursor-pointer">
-                                <input type="file" hidden onChange={(e) => console.log(e.target.files)}/>
+                                <input type="file" hidden onChange={(e) => console.log(e.target.files)} />
                                 <span className="text-gray-500 hover:text-gray-700">📎</span>
                             </label>
 
@@ -141,7 +144,7 @@ const ChatBox = () => {
 
                             {showPicker && (
                                 <div className="absolute bottom-12 right-0 z-10">
-                                    <EmojiPicker onEmojiClick={(emoji) => setMessageUser(messageUser + emoji.emoji)}/>
+                                    <EmojiPicker onEmojiClick={(emoji) => setMessageUser(messageUser + emoji.emoji)} />
                                 </div>
                             )}
 
