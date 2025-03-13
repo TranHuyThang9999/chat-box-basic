@@ -102,7 +102,6 @@ const ChatBox = () => {
                                                 className="bg-blue-500 text-white rounded-lg p-2 max-w-xs">{msg.user}</div>
                                         </div>
                                     )}
-                                   // Find the section where bot messages are rendered and update it:
 
                                     <div className="flex justify-start mt-1">
                                         <div className="bg-gray-200 text-gray-800 rounded-lg p-2 max-w-xs break-words">

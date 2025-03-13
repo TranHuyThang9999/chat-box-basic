@@ -12,7 +12,7 @@ export const getBotResponse = (messageUser) => {
         "source project": "đây là link project https://github.com/TranHuyThang9999/chat-box-basic",
     };
 
-    let botResponse = responses[normalizedMessage] || "Vui lòng thử lại";
+    let botResponse = responses[normalizedMessage] || "model chưa được cập nhật vui lòng thử lại vui lòng thử lại";
 
     const matches = linkify.match(botResponse);
     if (matches) {
