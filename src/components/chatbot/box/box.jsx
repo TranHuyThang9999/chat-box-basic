@@ -2,6 +2,25 @@ import { useEffect, useRef, useState } from "react"
 import EmojiPicker from "emoji-picker-react"
 import { getBotResponse } from "./config";
 
+const popularEmojis = [
+    "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", 
+    "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", 
+    "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🤩",
+    "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣",
+    "❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💯",
+    "👍", "👎", "👏", "🙌", "🤝", "🤲", "🤞", "✌️", "🤟", "🤘"
+];
+
+const isOnlyEmojis = (text) => {
+    // Regex để kiểm tra emoji
+    const emojiRegex = /^(\p{Emoji}|\p{Emoji_Presentation}|\p{Emoji_Modifier}|\p{Emoji_Modifier_Base}|\p{Emoji_Component})+$/u;
+    return emojiRegex.test(text.trim());
+};
+
+const getRandomEmoji = () => {
+    const randomIndex = Math.floor(Math.random() * popularEmojis.length);
+    return popularEmojis[randomIndex];
+};
 
 const ChatBox = () => {
     const [isChatVisible, setIsChatVisible] = useState(false)
@@ -15,10 +34,22 @@ const ChatBox = () => {
         if (!messageUser.trim()) return;
         setIsLoading(true);
         setShowPicker(false);
+        
+        // Lưu tin nhắn người dùng để sử dụng sau khi timeout
+        const userMessage = messageUser;
+        setMessageUser("");
+        
         setTimeout(() => {
-            const botResponse = getBotResponse(messageUser);
-            setListMessageHistory([...listMessageHistory, { user: messageUser, bot: botResponse }]);
-            setMessageUser("");
+            let botResponse;
+            
+            // Kiểm tra nếu tin nhắn chỉ chứa emoji
+            if (isOnlyEmojis(userMessage)) {
+                botResponse = getRandomEmoji();
+            } else {
+                botResponse = getBotResponse(userMessage);
+            }
+            
+            setListMessageHistory(prev => [...prev, { user: userMessage, bot: botResponse }]);
             setIsLoading(false);
         }, 1000);
     };
