@@ -1,6 +1,8 @@
 import React from "react";
 import {App,} from "zmp-ui";
 import ChatBox from "./chatbot/box/box";
+import CustomCalendar from "./CustomCalendar/Custom Calendar";
+import DinoGame from "./Games/DinoGame/DinoGame";
 
 const MyApp = () => {
     return (
@@ -15,10 +17,12 @@ const MyApp = () => {
             {/*    </AnimationRoutes>*/}
             {/*  </ZMPRouter>*/}
             {/*</SnackbarProvider>*/}
-            <ChatBox/>
+            {/* <ChatBox/> */}
             {/*<NotConcurrentRendering/>*/}
             {/* <ConcurrentRendering/> */}
             {/* <ValidateInput/> */}
+            {/* <CustomCalendar/> */}
+            <DinoGame/>
         </App>
     );
 };
